@@ -5,7 +5,7 @@
 #=================================================
 
 # dependencies used by the app (must be on a single line)
-pkg_dependencies="g++ postgresql ffmpeg"
+pkg_dependencies="g++ postgresql ffmpeg libolm3"
 
 #=================================================
 # CONFIG PANEL SETTERS

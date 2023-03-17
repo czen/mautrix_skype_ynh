@@ -33,7 +33,7 @@ listuser=$YNH_APP_ARG_BOTUSERS
 
 app=$YNH_APP_INSTANCE_NAME
 
-# ToDo check (in manifest?) if the selected synapse instance is not already connected to a mautrix_whatsapp bridge
+# ToDo check (in manifest?) if the selected synapse instance is not already connected to a mautrix_skype bridge
 if [ $synapsenumber -eq "1" ]
 then
 	synapse_instance="synapse"
@@ -57,43 +57,23 @@ fi
 # SET STANDARD SETTINGS FROM DEFAULT CONFIG
 #=================================================
 
-async_media="false"
-displayname="WhatsApp bridge bot"
+displayname="Skype bridge bot"
 avatar="mxc://maunium.net/NeXNQarUbrlYBiPCpprYsRqr"
-ephemeral_events="true"
-enable_metrics="false"
 listen_port="127.0.0.1:8001"
-os_name="Mautrix-WhatsApp bridge"
-browser_name="unknown"
-username_template="whatsapp_{{.}}"
-personal_filtering_spaces="false"
+username_template="skype_{{.}}"
 delivery_receipts="false"
-send_presence_on_typing="false"
-url_previews="false"
 encryption_default="false"
-encryption_require="false"
-admin_only="true"
 print_level="info"
 enable_relaybot="true"
 listrelay="*"
 
-ynh_app_setting_set --app=$app --key=async_media --value=$async_media
 ynh_app_setting_set --app=$app --key=displayname --value=$displayname
 ynh_app_setting_set --app=$app --key=avatar --value=$avatar
-ynh_app_setting_set --app=$app --key=ephemeral_events --value=$ephemeral_events
-ynh_app_setting_set --app=$app --key=enable_metrics --value=$enable_metrics
 ynh_app_setting_set --app=$app --key=listen_port --value=$listen_port
-ynh_app_setting_set --app=$app --key=os_name --value=$os_name
-ynh_app_setting_set --app=$app --key=browser_name --value=$browser_name
 ynh_app_setting_set --app=$app --key=username_template --value=$username_template
-ynh_app_setting_set --app=$app --key=personal_filtering_spaces --value=$personal_filtering_spaces
 ynh_app_setting_set --app=$app --key=delivery_receipts --value=$delivery_receipts
-ynh_app_setting_set --app=$app --key=send_presence_on_typing --value=$send_presence_on_typing
-ynh_app_setting_set --app=$app --key=url_previews --value=$url_previews
 ynh_app_setting_set --app=$app --key=encryption_default --value=$encryption_default
-ynh_app_setting_set --app=$app --key=encryption_require --value=$encryption_require
 ynh_app_setting_set --app=$app --key=enable_relaybot --value=$enable_relaybot
-ynh_app_setting_set --app=$app --key=admin_only --value=$admin_only
 ynh_app_setting_set --app=$app --key=print_level --value=$print_level
 ynh_app_setting_set --app=$app --key=listrelay --value=$listrelay
 
@@ -127,7 +107,7 @@ ynh_app_setting_set --app=$app --key=domain --value=$domain
 #=================================================
 ynh_script_progression --message="Finding an available port..." --weight=1
 
-# Find a free port for communication between your local synapse instance (home server) and its app service mautrix_whatsapp.
+# Find a free port for communication between your local synapse instance (home server) and its app service mautrix_skype.
 port=$(ynh_find_port --port=8449)
 ynh_app_setting_set --app=$app --key=port --value=$port
 
@@ -191,7 +171,7 @@ set__listuser
 #=================================================
 ynh_script_progression --message="Registering Synapse app-service" --weight=1
 
-$final_path/mautrix-whatsapp -g -c $final_path/config.yaml -r /etc/matrix-$synapse_instance/app-service/$app.yaml
+$final_path/mautrix-skype -g -c $final_path/config.yaml -r /etc/matrix-$synapse_instance/app-service/$app.yaml
 /opt/yunohost/matrix-$synapse_instance/update_synapse_for_appservice.sh || ynh_die --message="Synapse can't restart with the appservice configuration"
 
 chown -R $app:$app "$final_path"
@@ -224,7 +204,7 @@ chown -R $app:$app /var/log/$app
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
-yunohost service add $app --description="$app daemon for bridging Whatsapp and Matrix messages" --log="/var/log/$app/$app.log"
+yunohost service add $app --description="$app daemon for bridging Skype and Matrix messages" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE

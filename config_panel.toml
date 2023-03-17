@@ -44,14 +44,6 @@ services = ["__APP__"]
         help = "If allowed, '!wa set-relay' can be used to turn any Bridge User into a RelayBot for that chat. This allows people to talk on WhatsApp without an own account."
         bind = "relay>enabled:__FINALPATH__/config.yaml"
 
-        [main.bridge.admin_only]
-        ask = "Should only Bridge Admins be allowed to set themselves as Relay Users?"
-        type = "boolean"
-        yes = "true"
-		no = "false"
-        help = "See User management -> Admins"
-        bind = ":__FINALPATH__/config.yaml"
-        visible = "enable_relaybot"
 
     [main.bot]
     name = "Robot Settings"
@@ -71,7 +63,7 @@ services = ["__APP__"]
         [main.bot.avatar]
         ask = "Avatar for Bot"
         type = "string"
-        help = "Should be in format 'mxc://server_name/NeXNQarUbrlYBiPCpprYsRqr', see README for tutorial. Set to 'remove' to remove avatar, leave empty to use standard WhatsApp logo."
+        help = "Should be in format 'mxc://server_name/NeXNQarUbrlYBiPCpprYsRqr', see README for tutorial. Set to 'remove' to remove avatar, leave empty to use standard Skype logo."
         bind = ":__FINALPATH__/config.yaml"
 
 [privacy]
@@ -106,15 +98,6 @@ services = ["__APP__"]
         bind = "encryption>default:__FINALPATH__/config.yaml"
         visible = "encryption"
 
-        [privacy.portal_rooms.encryption_require]
-        ask = "Require encryption?"
-        type = "boolean"
-        yes = "true"
-        no = "false"
-        help = "Require encryption, drop any unencrypted messages."
-        bind = "encryption>require:__FINALPATH__/config.yaml"
-        visible = "encryption"
-
     [privacy.config]
     name = "Privacy Settings"
 
@@ -126,21 +109,6 @@ services = ["__APP__"]
         help = "Should the bridge send a read Receipt from the bridge bot when a message has been sent to WhatsApp?"
         bind = ":__FINALPATH__/config.yaml"
 
-        [privacy.config.send_presence_on_typing]
-        ask = "Send Presence on typing?"
-        type = "boolean"
-        yes = "true"
-        no = "false"
-        help = "Send the Presence as 'available' to WhatsApp when Users start typing on a Portal."
-        bind = ":__FINALPATH__/config.yaml"
-
-        [privacy.config.url_previews]
-        ask = "Enable URL Preview?"
-        type = "boolean"
-        yes = "true"
-        no = "false"
-        help = "Should the Bridge detect URLs in outgoing messages, ask the HomeServer to generate a Preview, and send it to WhatsApp?"
-        bind = ":__FINALPATH__/config.yaml"
 
 [advanced]
 name = "Advanced Settings"
@@ -159,39 +127,11 @@ services = ["__APP__"]
         [advanced.whatsapp.username_template]
         ask = "Localpart template of MXIDs for WhatsApp users"
         type = "string"
-        help = "Defaults to 'whatsapp_{{.}}'. '{{.}}' is replaced with the phone number 'msidsn' of the WhatsApp user."
+        help = "Defaults to 'skype_{{.}}'. '{{.}}' is replaced with the phone number 'msidsn' of the WhatsApp user."
         bind = ":__FINALPATH__/config.yaml"
 
-        [advanced.whatsapp.os_name]
-        ask = "Device name in the 'WhatsApp Web' section of the smartphone app"
-        type = "string"
-        bind = ":__FINALPATH__/config.yaml"
-
-        [advanced.whatsapp.browser_name]
-        ask = "Browser name that determines the logo shown in the smartphone app"
-        type = "select"
-        choices = ["unknown", "chrome", "firefox", "ie", "opera", "safari", "edge", "desktop", "ipad", "android_tablet", "ohana", "aloha", "catalina", "tcl_tv"]
-        help = "Must be 'unknown' for a generic icon or a valid browser name if you want a specific logo."
-        bind = ":__FINALPATH__/config.yaml"
-        
     [advanced.appservice]
     name = "HomeServer Application Service"
-
-        [advanced.appservice.async_media]
-        ask = "Enable asynchronous media uploads?"
-        type = "boolean"
-        yes = "true"
-        no = "false"
-        help = "Enable only if HomeServer supports https://github.com/matrix-org/matrix-spec-proposals/pull/2246?"
-        bind = ":__FINALPATH__/config.yaml"
-
-        [advanced.appservice.ephemeral_events]
-        ask = "Receive Ephemeral Events via AppService transactions?"
-        type = "boolean"
-        yes = "true"
-        no = "false"
-        help = "Enable only if HomeServer supports MSC2409 (i.e. Synapse 1.22+). If enabled, you should disable bridge -> 'sync_with_custom_puppets'."
-        bind = ":__FINALPATH__/config.yaml"
 
         [advanced.appservice.print_level]
         ask = "Logging print level for Standard Output"
@@ -199,21 +139,3 @@ services = ["__APP__"]
         choices = ["debug", "info", "warn", "error", "fatal"]
         help = "Minimum severity for log messages printed to stdout/stderr. This doesn't affect the log file."
         bind = ":__FINALPATH__/config.yaml"
-
-    [advanced.metrics]
-    name = "Prometheus Metrics"
-
-        [advanced.metrics.enable_metrics]
-        ask = "Enable Prometheus Metrics?"
-        type = "boolean"
-        yes = "true"
-        no = "false"
-        bind = "metrics>enabled:__FINALPATH__/config.yaml"
-
-        [advanced.metrics.listen_port]
-        ask = "IP and Port for the Metrics listener?"
-        type = "string"
-        help = "Defaults to: '127.0.0.1:8001'. The path is always /metrics"
-        bind = "metrics>listen:__FINALPATH__/config.yaml"
-        visible = "enable_metrics"
-

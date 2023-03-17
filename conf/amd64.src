@@ -1,6 +1,6 @@
-SOURCE_URL=https://github.com/mautrix/whatsapp/releases/download/v0.8.2/mautrix-whatsapp-amd64
-SOURCE_SUM=48cd1fbe1f884a4da789be3abef04c23a61f749901b7666cba794ca1c73046cb
+SOURCE_URL=https://github.com/czen/go-skype-bridge/releases/download/v0.1/go-skype-bridge-amd64
+SOURCE_SUM=f6be88a261e657d4d5e44864885b552e33d24681c1d3641bcd92e7e8ab78a6ea
 SOURCE_SUM_PRG=sha256sum
 SOURCE_IN_SUBDIR=false
-SOURCE_FILENAME=mautrix-whatsapp
+SOURCE_FILENAME=mautrix-skype
 SOURCE_EXTRACT=false
